@@ -1,0 +1,88 @@
+const skills = [
+  {
+    id: 1,
+    name: "HTML5",
+    category: "Frontend",
+    level: 90,
+    icon: "FaHtml5",
+  },
+  {
+    id: 2,
+    name: "CSS3",
+    category: "Frontend",
+    level: 85,
+    icon: "FaCss3Alt",
+  },
+  {
+    id: 3,
+    name: "JavaScript",
+    category: "Frontend",
+    level: 85,
+    icon: "SiJavascript",
+  },
+  {
+    id: 4,
+    name: "React.js",
+    category: "Frontend",
+    level: 85,
+    icon: "FaReact",
+  },
+  {
+    id: 5,
+    name: "Tailwind CSS",
+    category: "Frontend",
+    level: 85,
+    icon: "SiTailwindcss",
+  },
+  {
+    id: 6,
+    name: "Bootstrap",
+    category: "Frontend",
+    level: 80,
+    icon: "FaBootstrap",
+  },
+  {
+    id: 7,
+    name: "Node.js",
+    category: "Backend",
+    level: 75,
+    icon: "FaNodeJs",
+  },
+  {
+    id: 8,
+    name: "Express.js",
+    category: "Backend",
+    level: 75,
+    icon: "SiExpress",
+  },
+  {
+    id: 9,
+    name: "MongoDB",
+    category: "Database",
+    level: 75,
+    icon: "SiMongodb",
+  },
+  {
+    id: 10,
+    name: "Git & GitHub",
+    category: "Tools",
+    level: 80,
+    icon: "FaGithub",
+  },
+  {
+    id: 11,
+    name: "REST API",
+    category: "Backend",
+    level: 75,
+    icon: "FaServer",
+  },
+  {
+    id: 12,
+    name: "Figma",
+    category: "Tools",
+    level: 70,
+    icon: "FaFigma",
+  },
+];
+
+export default skills;
