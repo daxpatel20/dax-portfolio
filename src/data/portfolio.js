@@ -63,6 +63,7 @@ const portfolioData = {
       "I create clean, modern and high-performance web experiences using React.js, JavaScript and modern web technologies.",
     primaryButton: "View My Work",
     secondaryButton: "Download Resume",
+    viewbutton : "view resume"
   },
 
   contact: {

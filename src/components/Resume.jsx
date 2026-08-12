@@ -1,3 +1,4 @@
+import resume from "../resume/daxresume.pdf";
 import React from "react";
 import {
   FaDownload,
@@ -93,10 +94,11 @@ const Resume = () => {
           </div>
 
           <a
-            href="/resume/dax-patel-resume.pdf"
+            href={resume}
             className="btn btn-primary"
             target="_blank"
             rel="noreferrer"
+            download
           >
             Download Resume
             <FaDownload />

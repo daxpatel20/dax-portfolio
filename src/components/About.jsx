@@ -34,7 +34,7 @@ const About = () => {
           <div className="about-visual">
             <div className="about-profile-card">
               <div className="profile-placeholder">
-                <span>&lt;/&gt;</span>
+                {/* <span>&lt;/&gt;</span> */}
               </div>
 
               <div className="profile-code">

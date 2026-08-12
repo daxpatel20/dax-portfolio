@@ -1,4 +1,5 @@
 import React from "react";
+import resume from "../resume/daxresume.pdf";
 import { FaArrowRight, FaDownload, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import portfolioData from "../data/portfolio";
 
@@ -54,13 +55,13 @@ const Hero = () => {
             </button>
 
             <a
-              href="/resume/dax-patel-resume.pdf"
+              href={resume}
               className="btn btn-outline"
               target="_blank"
               rel="noreferrer"
             >
               <FaDownload />
-              {hero.secondaryButton}
+              {hero.viewbutton}
             </a>
           </div>
 
