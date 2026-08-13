@@ -1,25 +1,31 @@
+import adminPanel from '../projects/admin.webp'
+import swiggyp from '../projects/Swiggy.png'
+import peperdrop from '../projects/peper.png'
+import googlkeep from '../projects/googlkeep.png'
+
+
 const projects = [
   {
     id: 1,
-    title: "Tour & Travel Website",
+    title: "Swiggy Partner",
     category: "Full Stack",
     technologies: ["React.js", "Node.js", "Express.js", "MongoDB"],
     description:
       "A modern tour and travel platform with packages, user authentication, admin management and responsive UI.",
-    image: "/projects/project-01.png",
-    github: "https://github.com/",
+    image: swiggyp,
+    github: "https://github.com/daxpatel20/ADMIN-MAIN-PROJETS",
     live: "#",
     featured: true,
   },
 
   {
     id: 2,
-    title: "E-Commerce Platform",
+    title: "E-Commerce Platform ",
     category: "Full Stack",
-    technologies: ["React.js", "Node.js", "Express.js", "MongoDB"],
+    technologies: ["React.js", "JavaScript",],
     description:
       "A complete e-commerce application with authentication, products, cart functionality and role-based access.",
-    image: "/projects/project-02.png",
+    image : peperdrop,  
     github: "https://github.com/",
     live: "#",
     featured: true,
@@ -32,7 +38,7 @@ const projects = [
     technologies: ["React.js", "JavaScript", "CSS3"],
     description:
       "A clean and responsive dashboard interface designed for managing application data and analytics.",
-    image: "/projects/project-03.png",
+    image: adminPanel,
     github: "https://github.com/",
     live: "#",
     featured: true,
@@ -45,7 +51,7 @@ const projects = [
     technologies: ["React.js", "JavaScript", "CSS3"],
     description:
       "A note-taking application inspired by Google Keep with a clean interface and interactive note management.",
-    image: "/projects/project-04.png",
+    image: googlkeep,
     github: "https://github.com/",
     live: "#",
     featured: false,
