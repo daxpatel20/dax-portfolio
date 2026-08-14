@@ -25,26 +25,18 @@ const Header = () => {
   ];
 
   const socialLinks = [
-    {
-      label: "Facebook",
-      href: "#",
-      icon: <FaFacebookF />,
-    },
+   
     {
       label: "LinkedIn",
-      href: "#",
+      href: "https://www.linkedin.com/in/patel-dax-20a1a7332/",
       icon: <FaLinkedinIn />,
     },
     {
       label: "GitHub",
-      href: "#",
+      href: "https://github.com/daxpatel20",
       icon: <FaGithub />,
     },
-    {
-      label: "Instagram",
-      href: "#",
-      icon: <FaInstagram />,
-    },
+  
   ];
 
   /* Scroll effect */
