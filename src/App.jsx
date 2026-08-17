@@ -8,7 +8,7 @@ import Services from "./components/Services";
 import Projects from "./components/Projects";
 import Resume from "./components/Resume";
 import Testimonials from "./components/Testimonials";
-import Blog from "./components/Blog";
+// import Blog from "./components/Blog";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ParticlesBackground from "./components/ParticlesBackground";
@@ -31,7 +31,6 @@ const App = () => {
           <Projects />
           <Resume />
           <Testimonials />
-          <Blog />
           <Contact />
         </main>
 
