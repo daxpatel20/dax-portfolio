@@ -1,5 +1,5 @@
 import adminPanel from '../projects/admin.webp'
-import swiggyp from '../projects/Swiggy.png'
+import swiggyp from '../projects/swiggy.png'
 import peperdrop from '../projects/peper.png'
 import googlec from '../projects/googlec.png'
 import moviep from '../projects/moviep.png'
