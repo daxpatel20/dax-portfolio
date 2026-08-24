@@ -12,8 +12,11 @@ import Testimonials from "./components/Testimonials";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import ParticlesBackground from "./components/ParticlesBackground";
+import useProAnimations from "./useProAnimations";
 
 const App = () => {
+  useProAnimations();
+
   return (
     <div className="app">
       {/* Background Particles */}
