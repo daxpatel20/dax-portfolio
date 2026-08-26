@@ -1,5 +1,6 @@
 import React from "react";
 import resume from "../resume/daxresume.pdf";
+import profileImage from "../img/hero.png";
 import { FaArrowRight, FaDownload, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import portfolioData from "../data/portfolio";
 
@@ -95,88 +96,13 @@ const Hero = () => {
         <div className="hero-visual">
           <div className="hero-glow"></div>
 
-          <div className="hero-card">
-            <div className="code-window">
-              <div className="code-window-header">
-                <div className="window-dots">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-
-                <span className="window-title">
-                  dax.jsx
-                </span>
-              </div>
-
-              <div className="code-content">
-                <p>
-                  <span className="code-purple">const</span>{" "}
-                  <span className="code-blue">developer</span>{" "}
-                  <span className="code-white">=</span>{" "}
-                  <span className="code-yellow">{"{"}</span>
-                </p>
-
-                <p className="code-indent">
-                  <span className="code-green">name:</span>{" "}
-                  <span className="code-orange">
-                    "{personal.name}"
-                  </span>
-                  ,
-                </p>
-
-                <p className="code-indent">
-                  <span className="code-green">role:</span>{" "}
-                  <span className="code-orange">
-                    "{personal.role}"
-                  </span>
-                  ,
-                </p>
-
-                <p className="code-indent">
-                  <span className="code-green">skills:</span>{" "}
-                  <span className="code-yellow">[</span>
-                </p>
-
-                <p className="code-indent-double">
-                  <span className="code-orange">
-                    "React.js"
-                  </span>
-                  ,
-                </p>
-
-                <p className="code-indent-double">
-                  <span className="code-orange">
-                    "JavaScript"
-                  </span>
-                  ,
-                </p>
-
-                <p className="code-indent-double">
-                  <span className="code-orange">
-                    "Node.js"
-                  </span>
-                  ,
-                </p>
-
-                <p className="code-indent-double">
-                  <span className="code-orange">
-                    "MongoDB"
-                  </span>
-                </p>
-
-                <p className="code-indent">
-                  <span className="code-yellow">]</span>
-                </p>
-
-                <p>
-                  <span className="code-yellow">{"}"}</span>;
-                </p>
-
-                <p className="code-comment">
-                  // Let's build something amazing 🚀
-                </p>
-              </div>
+          <div className="hero-card hero-image-card">
+            <div className="hero-image-shell">
+              <img
+                src={profileImage}
+                alt="Developer portrait"
+                className="hero-image"
+              />
             </div>
           </div>
 

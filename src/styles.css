@@ -778,9 +778,11 @@ section {
       transparent 40%
     ),
     #111118;
-    background-image: url(../src/img/unnamed.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
+  background-image: url(../src/img/unnamed.jpg);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  background-color: black;
 }
 
 .profile-placeholder span {
