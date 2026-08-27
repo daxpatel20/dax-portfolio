@@ -1,6 +1,6 @@
 import React from "react";
 import resume from "../resume/daxresume.pdf";
-import profileImage from "../img/hero.png";
+import profileImage from "../img/hek.png";
 import { FaArrowRight, FaDownload, FaGithub, FaLinkedinIn } from "react-icons/fa";
 import portfolioData from "../data/portfolio";
 
