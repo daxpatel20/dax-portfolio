@@ -1,130 +1,82 @@
-import React from "react";
-import {
-  FaCode,
-  FaLaptopCode,
-  FaGraduationCap,
-  FaMapMarkerAlt,
-  FaArrowRight,
-} from "react-icons/fa";
+import React, { useRef } from "react";
+import { FiArrowUpRight } from "react-icons/fi";
+import Split from "./Split";
 import portfolioData from "../data/portfolio";
+import portrait from "../img/profile.jpg";
 
 const About = () => {
-  const { personal } = portfolioData;
+  const { personal, stats } = portfolioData;
+  const cardRef = useRef(null);
+
+  // 3D tilt that follows the pointer.
+  const onMove = (e) => {
+    const card = cardRef.current;
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.setProperty("--rx", `${-y * 14}deg`);
+    card.style.setProperty("--ry", `${x * 14}deg`);
+    card.style.setProperty("--gx", `${(x + 0.5) * 100}%`);
+    card.style.setProperty("--gy", `${(y + 0.5) * 100}%`);
+  };
+  const onLeave = () => {
+    cardRef.current.style.setProperty("--rx", "0deg");
+    cardRef.current.style.setProperty("--ry", "0deg");
+  };
 
   return (
-    <section id="about" className="about-section">
+    <section id="about" className="section about">
       <div className="container">
-        {/* Section Heading */}
-        <div className="section-heading">
-          <span className="section-label">About Me</span>
-
-          <h2>
-            Turning ideas into
-            <span> digital experiences.</span>
-          </h2>
-
-          <p>
-            A little more about who I am, what I do and how I approach
-            development.
-          </p>
+        <div className="section-tag" data-reveal>
+          <span>01</span> About me
         </div>
 
         <div className="about-grid">
-          {/* About Visual */}
-          <div className="about-visual">
-            <div className="about-profile-card">
-              <div className="profile-placeholder">
-                {/* <span>&lt;/&gt;</span> */}
+          <div className="portrait-stage" data-reveal>
+            <div className="portrait-card" ref={cardRef} onPointerMove={onMove} onPointerLeave={onLeave}>
+              <img src={portrait} alt={`Portrait of ${personal.name}`} />
+              <div className="portrait-glare" />
+              <div className="portrait-meta">
+                <span className="mono">{personal.name}</span>
+                <span className="mono accent">{personal.role}</span>
               </div>
-
-              <div className="profile-code">
-                <span className="code-purple">developer</span>
-                <span className="code-white">.</span>
-                <span className="code-blue">passion</span>
-                <span className="code-white"> = </span>
-                <span className="code-orange">
-                  "Building"
-                </span>
+              <div className="portrait-chip chip-a">
+                <span className="mono">const</span> dev = <b>"passion"</b>
               </div>
+              <div className="portrait-chip chip-b">⚡ MERN Stack</div>
             </div>
-
-            <div className="about-decoration about-decoration-one"></div>
-            <div className="about-decoration about-decoration-two"></div>
           </div>
 
-          {/* About Content */}
-          <div className="about-content">
-            <span className="about-intro">
-              I'm {personal.firstName} {personal.lastName}
-            </span>
+          <div className="about-copy">
+            <h2 className="display-md">
+              <Split>I turn complex problems into</Split>{" "}
+              <span className="grad-text">
+                <Split>elegant digital products.</Split>
+              </span>
+            </h2>
 
-            <h3>
-              {personal.role} who loves building
-              <span> modern web applications.</span>
-            </h3>
-
-            <p>
-              {personal.bio}
+            <p className="lead" data-reveal>
+              I'm {personal.firstName}, a {personal.role.toLowerCase()} from {personal.location}. {personal.bio}
+            </p>
+            <p className="muted" data-reveal>
+              My focus is writing maintainable code while crafting experiences that are fast, responsive and
+              genuinely enjoyable to use — the kind of polish that makes a product feel premium.
             </p>
 
-            <p>
-              I enjoy turning complex problems into simple, beautiful and
-              intuitive solutions. My focus is writing maintainable code while
-              creating experiences that are fast, responsive and enjoyable to
-              use.
-            </p>
-
-            {/* Information */}
-            <div className="about-info">
-              <div className="about-info-item">
-                <div className="about-info-icon">
-                  <FaCode />
+            <div className="stats">
+              {stats.map((s) => (
+                <div className="stat" key={s.label} data-reveal>
+                  <strong>
+                    <span data-count={s.value}>0</span>
+                    <em>{s.suffix}</em>
+                  </strong>
+                  <span className="mono muted">{s.label}</span>
                 </div>
-
-                <div>
-                  <span>Specialization</span>
-                  <strong>React & Full Stack</strong>
-                </div>
-              </div>
-
-              <div className="about-info-item">
-                <div className="about-info-icon">
-                  <FaLaptopCode />
-                </div>
-
-                <div>
-                  <span>Experience</span>
-                  <strong>Project Based</strong>
-                </div>
-              </div>
-
-              <div className="about-info-item">
-                <div className="about-info-icon">
-                  <FaGraduationCap />
-                </div>
-
-                <div>
-                  <span>Learning</span>
-                  <strong>Always Growing</strong>
-                </div>
-              </div>
-
-              <div className="about-info-item">
-                <div className="about-info-icon">
-                  <FaMapMarkerAlt />
-                </div>
-
-                <div>
-                  <span>Location</span>
-                  <strong>{personal.location}</strong>
-                </div>
-              </div>
+              ))}
             </div>
 
-            {/* CTA */}
-            <a href="#contact" className="about-cta">
-              Let's Connect
-              <FaArrowRight />
+            <a href="#contact" className="text-link" data-reveal>
+              Let's connect <FiArrowUpRight />
             </a>
           </div>
         </div>

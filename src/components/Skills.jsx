@@ -1,75 +1,63 @@
 import React from "react";
-import {
-  FaHtml5,
-  FaCss3Alt,
-  FaJs,
-  FaReact,
-  FaBootstrap,
-  FaNodeJs,
-  FaGithub,
-  FaServer,
-  FaFigma,
-} from "react-icons/fa";
-import { SiTailwindcss, SiExpress, SiMongodb } from "react-icons/si";
+import { FaHtml5, FaCss3Alt, FaReact, FaBootstrap, FaNodeJs, FaGithub, FaServer, FaFigma } from "react-icons/fa";
+import { SiJavascript, SiTailwindcss, SiExpress, SiMongodb } from "react-icons/si";
+import Split from "./Split";
 import skills from "../data/skills";
 
-const iconMap = {
-  FaHtml5: <FaHtml5 />,
-  FaCss3Alt: <FaCss3Alt />,
-  SiJavascript: <FaJs />,
-  FaReact: <FaReact />,
-  SiTailwindcss: <SiTailwindcss />,
-  FaBootstrap: <FaBootstrap />,
-  FaNodeJs: <FaNodeJs />,
-  SiExpress: <SiExpress />,
-  SiMongodb: <SiMongodb />,
-  FaGithub: <FaGithub />,
-  FaServer: <FaServer />,
-  FaFigma: <FaFigma />,
+const icons = {
+  FaHtml5, FaCss3Alt, FaReact, FaBootstrap, FaNodeJs, FaGithub, FaServer, FaFigma,
+  SiJavascript, SiTailwindcss, SiExpress, SiMongodb,
 };
 
-const Skills = () => {
-  return (
-    <section id="skills" className="skills-section">
-      <div className="container">
-        <div className="section-heading">
-          <span className="section-label">My Skills</span>
-          <h2>
-            Technologies I <span>work with.</span>
-          </h2>
-          <p>
-            A practical stack for building modern, responsive and scalable
-            web applications.
-          </p>
+// Spotlight follows the pointer inside each tile.
+const onMove = (e) => {
+  const r = e.currentTarget.getBoundingClientRect();
+  e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+  e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+};
+
+const Skills = () => (
+  <section id="skills" className="section skills">
+    <div className="container">
+      <div className="section-head">
+        <div className="section-tag" data-reveal>
+          <span>02</span> Tech stack
         </div>
-
-        <div className="skills-grid">
-          {skills.map((skill) => (
-            <article className="skill-card" key={skill.id}>
-              <div className="skill-card-top">
-                <div className="skill-icon" aria-hidden="true">
-                  {iconMap[skill.icon]}
-                </div>
-                <span className="skill-category">{skill.category}</span>
-              </div>
-
-              <div className="skill-name-row">
-                <h3>{skill.name}</h3>
-                <span>{skill.level}%</span>
-              </div>
-
-              <div
-                className="skill-progress"
-                aria-label={`${skill.name} skill level ${skill.level}%`}
-              >
-                <span style={{ width: `${skill.level}%` }} />
-              </div>
-            </article>
-          ))}
-        </div>
+        <h2 className="display-md">
+          <Split>Tools I use to</Split>{" "}
+          <span className="grad-text">
+            <Split>build the future.</Split>
+          </span>
+        </h2>
       </div>
-    </section>
-  );
-};
+
+      <div className="skills-grid">
+        {skills.map((skill, i) => {
+          const Icon = icons[skill.icon];
+          return (
+            <div
+              className={`skill-tile ${i === 3 || i === 6 ? "wide" : ""}`}
+              key={skill.id}
+              onPointerMove={onMove}
+              data-reveal
+            >
+              <div className="skill-top">
+                <span className="skill-icon">{Icon && <Icon />}</span>
+                <span className="mono muted">{skill.category}</span>
+              </div>
+              <div className="skill-bottom">
+                <h3>{skill.name}</h3>
+                <div className="skill-meter">
+                  <span style={{ "--level": skill.level / 100 }} />
+                </div>
+                <span className="mono skill-level">{skill.level}%</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+);
 
 export default Skills;

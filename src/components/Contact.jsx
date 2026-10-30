@@ -1,251 +1,87 @@
 import React, { useState } from "react";
-import {
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaGithub,
-  FaLinkedinIn,
-  FaInstagram,
-  FaFacebookF,
-  FaPaperPlane,
-  FaArrowRight,
-} from "react-icons/fa";
-
+import { FiArrowUpRight, FiCopy, FiCheck, FiSend } from "react-icons/fi";
 import portfolioData from "../data/portfolio";
 
 const Contact = () => {
-  const { personal, social, contact } = portfolioData;
+  const { personal } = portfolioData;
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [copied, setCopied] = useState(false);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  });
+  const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setFormData((currentData) => ({
-      ...currentData,
-      [name]: value,
-    }));
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const subject = encodeURIComponent(`Portfolio enquiry from ${form.name}`);
+    const body = encodeURIComponent(`Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`);
+    window.location.href = `mailto:${personal.email}?subject=${subject}&body=${body}`;
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const mailSubject = encodeURIComponent(
-      formData.subject || `Portfolio contact from ${formData.name}`
-    );
-
-    const mailBody = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.message}`
-    );
-
-    window.location.href = `mailto:${contact.email}?subject=${mailSubject}&body=${mailBody}`;
-
-    setSubmitted(true);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(personal.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.location.href = `mailto:${personal.email}`;
+    }
   };
 
   return (
-    <section id="contact" className="contact-section">
+    <section id="contact" className="section contact">
+      <div className="contact-glow" aria-hidden="true" />
       <div className="container">
-        {/* Section Heading */}
-        <div className="section-heading">
-          <span className="section-label">Contact Me</span>
-
-          <h2>
-            Let's build something
-            <span> great together.</span>
-          </h2>
-
-          <p>
-            Have an idea, project or opportunity? Send me a message and
-            let's start a conversation.
-          </p>
+        <div className="section-tag" data-reveal>
+          <span>06</span> Contact
         </div>
 
+        <h2 className="contact-title">
+          <span className="hero-line">
+            <span className="contact-line">Let's build</span>
+          </span>
+          <span className="hero-line">
+            <span className="contact-line">
+              something <em className="grad-text">iconic.</em>
+            </span>
+          </span>
+        </h2>
+
         <div className="contact-grid">
-          {/* Contact Information */}
-          <div className="contact-info">
-            <div className="contact-intro">
-              <span className="contact-small-title">
-                Get in touch
-              </span>
+          <div className="contact-side" data-reveal>
+            <p className="lead">
+              Have a project, role or idea? I'm currently open to full-time opportunities and freelance work.
+            </p>
+            <button className="email-pill" onClick={copyEmail} data-magnetic>
+              <span>{personal.email}</span>
+              {copied ? <FiCheck /> : <FiCopy />}
+            </button>
+            <span className="mono muted copy-hint">{copied ? "Copied to clipboard" : "Click to copy"}</span>
 
-              <h3>
-                Have a project
-                <span> in mind?</span>
-              </h3>
-
-              <p>
-                I'm always open to discussing new projects, creative ideas,
-                freelance opportunities or ways we can work together.
-              </p>
-            </div>
-
-            {/* Email */}
-            <a
-              href={`mailto:${personal.email}`}
-              className="contact-info-card"
-            >
-              <div className="contact-info-icon">
-                <FaEnvelope />
-              </div>
-
-              <div>
-                <span>Email me</span>
-                <strong>{personal.email}</strong>
-              </div>
-
-              <FaArrowRight className="contact-info-arrow" />
-            </a>
-
-            {/* Location */}
-            <div className="contact-info-card">
-              <div className="contact-info-icon">
-                <FaMapMarkerAlt />
-              </div>
-
-              <div>
-                <span>Location</span>
-                <strong>{personal.location}</strong>
-              </div>
-            </div>
-
-            {/* Social Links */}
-            <div className="contact-social">
-              <span>Follow me</span>
-
-              <div className="contact-social-links">
-                <a
-                  href={social.facebook}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Facebook"
-                >
-                  <FaFacebookF />
+            <div className="socials">
+              {Object.entries(portfolioData.social).map(([name, url]) => (
+                <a key={name} href={url} target="_blank" rel="noreferrer" className="social-link">
+                  {name} <FiArrowUpRight />
                 </a>
-
-                <a
-                  href={social.linkedin}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="LinkedIn"
-                >
-                  <FaLinkedinIn />
-                </a>
-
-                <a
-                  href={social.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="GitHub"
-                >
-                  <FaGithub />
-                </a>
-
-                <a
-                  href={social.instagram}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Instagram"
-                >
-                  <FaInstagram />
-                </a>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="contact-form-wrapper">
-            <form
-              className="contact-form"
-              onSubmit={handleSubmit}
-            >
-              <div className="form-row">
-                <div className="form-group">
-                  <label htmlFor="name">
-                    Your Name
-                  </label>
-
-                  <input
-                    id="name"
-                    type="text"
-                    name="name"
-                    placeholder="Enter your name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-
-                <div className="form-group">
-                  <label htmlFor="email">
-                    Your Email
-                  </label>
-
-                  <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="subject">
-                  Subject
-                </label>
-
-                <input
-                  id="subject"
-                  type="text"
-                  name="subject"
-                  placeholder="What is this about?"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="message">
-                  Message
-                </label>
-
-                <textarea
-                  id="message"
-                  name="message"
-                  rows="7"
-                  placeholder="Tell me about your project..."
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="btn btn-primary contact-submit"
-              >
-                <FaPaperPlane />
-                Send Message
-              </button>
-
-              {submitted && (
-                <p className="form-success">
-                  Your email client should open with the message prepared.
-                </p>
-              )}
-            </form>
-          </div>
+          <form className="contact-form" onSubmit={onSubmit} data-reveal>
+            <label className="field">
+              <input name="name" value={form.name} onChange={onChange} placeholder=" " required />
+              <span>Your name</span>
+            </label>
+            <label className="field">
+              <input type="email" name="email" value={form.email} onChange={onChange} placeholder=" " required />
+              <span>Your email</span>
+            </label>
+            <label className="field">
+              <textarea name="message" rows="4" value={form.message} onChange={onChange} placeholder=" " required />
+              <span>Tell me about your project</span>
+            </label>
+            <button type="submit" className="btn btn-primary btn-block" data-magnetic>
+              <span>Send message</span> <FiSend />
+            </button>
+          </form>
         </div>
       </div>
     </section>

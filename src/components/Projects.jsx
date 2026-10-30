@@ -1,179 +1,68 @@
-import React, { useState } from "react";
-import {
-  FaGithub,
-  FaExternalLinkAlt,
-  FaArrowRight,
-} from "react-icons/fa";
+import React from "react";
+import { FiGithub, FiArrowUpRight } from "react-icons/fi";
+import Split from "./Split";
+import projects from "../data/projects";
 
-import projects, {
-  projectCategories,
-} from "../data/projects";
-
-const Projects = () => {
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const filteredProjects =
-    activeCategory === "All"
-      ? projects
-      : projects.filter(
-          (project) => project.category === activeCategory
-        );
-
-  return (
-    <section id="projects" className="projects-section">
-      <div className="container">
-        {/* Section Heading */}
-        <div className="section-heading projects-heading">
-          <span className="section-label">My Work</span>
-
-          <h2>
-            Projects I've
-            <span> built.</span>
-          </h2>
-
-          <p>
-            A selection of projects where I combined clean code, modern
-            technologies and thoughtful design.
-          </p>
+const Projects = () => (
+  <section id="projects" className="section projects">
+    <div className="container">
+      <div className="section-head">
+        <div className="section-tag" data-reveal>
+          <span>04</span> Selected work
         </div>
+        <h2 className="display-md">
+          <Split>Projects crafted with</Split>{" "}
+          <span className="grad-text">
+            <Split>obsessive detail.</Split>
+          </span>
+        </h2>
+      </div>
 
-        {/* Project Filters */}
-        <div className="project-filter">
-          {projectCategories.map((category) => (
-            <button
-              key={category}
-              type="button"
-              className={
-                activeCategory === category
-                  ? "project-filter-btn active"
-                  : "project-filter-btn"
-              }
-              onClick={() => setActiveCategory(category)}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-
-        {/* Projects Grid */}
-        <div className="projects-grid">
-          {filteredProjects.map((project) => (
-            <article
-              className="project-card"
-              key={project.id}
-            >
-              {/* Project Image */}
-              <div className="project-image-wrapper">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="project-image"
-                  loading="lazy"
-                />
-
-                <div className="project-overlay">
-                  <div className="project-overlay-links">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`${project.title} GitHub`}
-                    >
-                      <FaGithub />
-                    </a>
-
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`${project.title} live demo`}
-                    >
-                      <FaExternalLinkAlt />
-                    </a>
-                  </div>
+      <div className="project-stack">
+        {projects.map((p, i) => (
+          <article className="project-card" key={p.id} style={{ "--i": i }}>
+            <div className="project-inner">
+              <div className="project-info">
+                <div className="project-meta mono">
+                  <span className="accent">{String(i + 1).padStart(2, "0")}</span>
+                  <span>{p.category}</span>
+                  <span>{p.year}</span>
                 </div>
-
-                {project.featured && (
-                  <span className="featured-badge">
-                    Featured
-                  </span>
-                )}
-              </div>
-
-              {/* Project Content */}
-              <div className="project-content">
-                <div className="project-meta">
-                  <span>{project.category}</span>
-                </div>
-
-                <h3>{project.title}</h3>
-
-                <p>{project.description}</p>
-
-                {/* Technologies */}
-                <div className="project-technologies">
-                  {project.technologies.map((technology) => (
-                    <span key={technology}>
-                      {technology}
-                    </span>
+                <h3>{p.title}</h3>
+                <p>{p.description}</p>
+                <div className="tags">
+                  {p.technologies.map((t) => (
+                    <span key={t}>{t}</span>
                   ))}
                 </div>
-
-                {/* Project Links */}
                 <div className="project-links">
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <FaGithub />
-                    GitHub
+                  <a href={p.github} target="_blank" rel="noreferrer" className="btn btn-ghost sm" data-magnetic>
+                    <FiGithub /> <span>Source</span>
                   </a>
-
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    Live Demo
-                    <FaExternalLinkAlt />
-                  </a>
+                  {p.live !== "#" && (
+                    <a href={p.live} target="_blank" rel="noreferrer" className="btn btn-primary sm" data-magnetic>
+                      <span>Live</span> <FiArrowUpRight />
+                    </a>
+                  )}
                 </div>
               </div>
-            </article>
-          ))}
-        </div>
 
-        {/* Empty State */}
-        {filteredProjects.length === 0 && (
-          <div className="projects-empty">
-            <h3>No projects found</h3>
-
-            <p>
-              There are currently no projects in this category.
-            </p>
-          </div>
-        )}
-
-        {/* Bottom CTA */}
-        <div className="projects-bottom">
-          <p>
-            Want to see more of my work?
-          </p>
-
-          <a
-            href="https://github.com/"
-            target="_blank"
-            rel="noreferrer"
-            className="text-link"
-          >
-            Visit my GitHub
-            <FaArrowRight />
-          </a>
-        </div>
+              <a
+                href={p.github}
+                target="_blank"
+                rel="noreferrer"
+                className="project-media"
+                data-cursor="View"
+                aria-label={`${p.title} on GitHub`}
+              >
+                <img src={p.image} alt={`${p.title} screenshot`} loading="lazy" />
+              </a>
+            </div>
+          </article>
+        ))}
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 export default Projects;

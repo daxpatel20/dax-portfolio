@@ -1,188 +1,56 @@
 import React, { useEffect, useState } from "react";
-import {
-  FaGithub,
-  FaLinkedinIn,
-  FaInstagram,
-  FaFacebookF,
-  FaSun,
-  FaMoon,
-  FaBars,
-  FaTimes,
-} from "react-icons/fa";
+import portfolioData from "../data/portfolio";
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const { navigation, personal } = portfolioData;
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const navItems = [
-    { label: "Home", href: "#home" },
-    { label: "About", href: "#about" },
-    { label: "Skills", href: "#skills" },
-    { label: "Services", href: "#services" },
-    { label: "Projects", href: "#projects" },
-    { label: "Contact", href: "#contact" },
-  ];
-
-  const socialLinks = [
-   
-    {
-      label: "LinkedIn",
-      href: "https://www.linkedin.com/in/patel-dax-20a1a7332/",
-      icon: <FaLinkedinIn />,
-    },
-    {
-      label: "GitHub",
-      href: "https://github.com/daxpatel20",
-      icon: <FaGithub />,
-    },
-  
-  ];
-
-  /* Scroll effect */
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener(
-        "scroll",
-        handleScroll
-      );
-    };
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Theme */
   useEffect(() => {
-    document.documentElement.setAttribute(
-      "data-theme",
-      darkMode ? "dark" : "light"
-    );
-  }, [darkMode]);
-
-  /* Close mobile menu */
-  const handleNavClick = () => {
-    setMenuOpen(false);
-  };
+    document.body.classList.toggle("menu-open", open);
+  }, [open]);
 
   return (
-    <header
-      className={`header ${
-        scrolled ? "header-scrolled" : ""
-      }`}
-    >
-      <div className="container header-container">
-        {/* Logo */}
-        <a
-          href="#home"
-          className="logo"
-          onClick={handleNavClick}
-          aria-label="Dax Patel Home"
-        >
-          <span className="logo-symbol">
-            &lt;
-          </span>
+    <header className={`header ${scrolled ? "is-scrolled" : ""} ${open ? "is-open" : ""}`}>
+      <a href="#home" className="logo" data-magnetic onClick={() => setOpen(false)}>
+        <span className="logo-mark">D</span>
+        <span className="logo-text">
+          {personal.firstName}
+          <em>.dev</em>
+        </span>
+      </a>
 
-          <span className="logo-name">
-            Dax<span>.</span>
-          </span>
+      <nav className="nav">
+        {navigation.map((item, i) => (
+          <a key={item.href} href={item.href} className="nav-link" onClick={() => setOpen(false)}>
+            <span className="nav-index">0{i + 1}</span>
+            <span className="nav-roll" data-text={item.label}>
+              {item.label}
+            </span>
+          </a>
+        ))}
+      </nav>
 
-          <span className="logo-symbol">
-            /&gt;
-          </span>
-        </a>
+      <a href="#contact" className="header-cta" data-magnetic>
+        <span className="pulse-dot" /> Hire me
+      </a>
 
-        {/* Desktop / Mobile Navigation */}
-        <nav
-          className={`navigation ${
-            menuOpen ? "navigation-open" : ""
-          }`}
-        >
-          <ul className="navigation-list">
-            {navItems.map((item) => (
-              <li key={item.href}>
-                <a
-                  href={item.href}
-                  className="nav-link"
-                  onClick={handleNavClick}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          {/* Mobile Social Links */}
-          <div className="mobile-social-links">
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                target="_blank"
-                rel="noreferrer"
-                onClick={handleNavClick}
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
-        </nav>
-
-        {/* Header Actions */}
-        <div className="header-actions">
-          {/* Desktop Social */}
-          <div className="desktop-social-links">
-            {socialLinks.map((social) => (
-              <a
-                key={social.label}
-                href={social.href}
-                aria-label={social.label}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {social.icon}
-              </a>
-            ))}
-          </div>
-
-          {/* Theme Button */}
-          <button
-            type="button"
-            className="theme-toggle"
-            onClick={() =>
-              setDarkMode((previous) => !previous)
-            }
-            aria-label={
-              darkMode
-                ? "Switch to light mode"
-                : "Switch to dark mode"
-            }
-          >
-            {darkMode ? <FaSun /> : <FaMoon />}
-          </button>
-
-          {/* Mobile Menu */}
-          <button
-            type="button"
-            className="menu-toggle"
-            onClick={() =>
-              setMenuOpen((previous) => !previous)
-            }
-            aria-label={
-              menuOpen
-                ? "Close navigation menu"
-                : "Open navigation menu"
-            }
-            aria-expanded={menuOpen}
-          >
-            {menuOpen ? <FaTimes /> : <FaBars />}
-          </button>
-        </div>
-      </div>
+      <button
+        className="menu-toggle"
+        aria-label={open ? "Close menu" : "Open menu"}
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span />
+        <span />
+      </button>
     </header>
   );
 };

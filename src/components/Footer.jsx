@@ -1,152 +1,51 @@
-import React from "react";
-import {
-  FaGithub,
-  FaLinkedinIn,
-  FaInstagram,
-  FaFacebookF,
-  FaArrowUp,
-  FaHeart,
-} from "react-icons/fa";
-
+import React, { useEffect, useState } from "react";
+import { FiArrowUp } from "react-icons/fi";
 import portfolioData from "../data/portfolio";
 
-const Footer = () => {
-  const { personal, social, navigation } = portfolioData;
+const formatTime = () =>
+  new Date().toLocaleTimeString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
-  };
+const Footer = ({ onTop }) => {
+  const { personal, navigation } = portfolioData;
+  const [time, setTime] = useState(formatTime);
 
-  const currentYear = new Date().getFullYear();
+  useEffect(() => {
+    const id = setInterval(() => setTime(formatTime()), 30000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <footer className="footer">
       <div className="container">
-        {/* Footer Top */}
         <div className="footer-top">
-          {/* Brand */}
-          <div className="footer-brand">
-            <a href="#home" className="footer-logo">
-              <span>&lt;</span>
-              {personal.firstName}
-              <span>/&gt;</span>
-            </a>
-
-            <p>
-              {personal.role} creating modern, responsive and
-              user-focused web experiences.
-            </p>
-
-            <a
-              href={`mailto:${personal.email}`}
-              className="footer-email"
-            >
-              {personal.email}
-            </a>
+          <div>
+            <span className="mono muted">Local time · Surat</span>
+            <strong>{time} IST</strong>
           </div>
-
-          {/* Quick Links */}
-          <div className="footer-column">
-            <h3>Quick Links</h3>
-
-            <ul>
-              {navigation.slice(0, 5).map((item) => (
-                <li key={item.href}>
-                  <a href={item.href}>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Explore */}
-          <div className="footer-column">
-            <h3>Explore</h3>
-
-            <ul>
-              {navigation.slice(5).map((item) => (
-                <li key={item.href}>
-                  <a href={item.href}>
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-
-              <li>
-                <a href="/resume/dax-patel-resume.pdf">
-                  Resume
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          {/* Social */}
-          <div className="footer-column footer-social-column">
-            <h3>Let's Connect</h3>
-
-            <p>
-              Follow me and stay connected.
-            </p>
-
-            <div className="footer-social-links">
-              <a
-                href={social.facebook}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Facebook"
-              >
-                <FaFacebookF />
+          <nav className="footer-nav">
+            {navigation.map((n) => (
+              <a key={n.href} href={n.href}>
+                {n.label}
               </a>
-
-              <a
-                href={social.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedinIn />
-              </a>
-
-              <a
-                href={social.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-              >
-                <FaGithub />
-              </a>
-
-              <a
-                href={social.instagram}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="Instagram"
-              >
-                <FaInstagram />
-              </a>
-            </div>
-          </div>
+            ))}
+          </nav>
+          <button className="to-top" onClick={onTop} aria-label="Back to top" data-magnetic>
+            <FiArrowUp />
+          </button>
         </div>
 
-        {/* Footer Bottom */}
-        <div className="footer-bottom">
-          <p>
-            © {currentYear} {personal.name}. Made with{" "}
-            <FaHeart /> and code.
-          </p>
+        <div className="footer-name" aria-hidden="true">
+          {personal.firstName}
+          <span>{personal.lastName}</span>
+        </div>
 
-          <button
-            type="button"
-            className="back-to-top"
-            onClick={scrollToTop}
-            aria-label="Back to top"
-          >
-            <FaArrowUp />
-          </button>
+        <div className="footer-bottom mono muted">
+          <span>© {new Date().getFullYear()} {personal.name}</span>
+          <span>Designed & built with React · GSAP · Canvas</span>
         </div>
       </div>
     </footer>

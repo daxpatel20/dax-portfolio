@@ -1,105 +1,37 @@
 import React from "react";
-import {
-  FaCode,
-  FaLaptopCode,
-  FaPalette,
-  FaServer,
-  FaGlobe,
-  FaRocket,
-  FaArrowRight,
-} from "react-icons/fa";
+import { FiArrowUpRight } from "react-icons/fi";
+import Split from "./Split";
+import portfolioData from "../data/portfolio";
 
-import services from "../data/services";
-
-const iconMap = {
-  FaCode: <FaCode />,
-  FaLaptopCode: <FaLaptopCode />,
-  FaPalette: <FaPalette />,
-  FaServer: <FaServer />,
-  FaGlobe: <FaGlobe />,
-  FaRocket: <FaRocket />,
-};
-
-const Services = () => {
-  return (
-    <section id="services" className="services-section">
-      <div className="container">
-        {/* Section Heading */}
-        <div className="section-heading">
-          <span className="section-label">What I Do</span>
-
-          <h2>
-            Services built around
-            <span> your ideas.</span>
-          </h2>
-
-          <p>
-            From frontend interfaces to complete web applications, I focus on
-            creating reliable and modern digital solutions.
-          </p>
+const Services = () => (
+  <section id="services" className="section services">
+    <div className="container">
+      <div className="section-head">
+        <div className="section-tag" data-reveal>
+          <span>03</span> What I do
         </div>
-
-        {/* Services Grid */}
-        <div className="services-grid">
-          {services.map((service, index) => (
-            <article
-              className="service-card"
-              key={service.id}
-            >
-              {/* Card Number */}
-              <span className="service-number">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-
-              {/* Icon */}
-              <div className="service-icon">
-                {iconMap[service.icon]}
-              </div>
-
-              {/* Content */}
-              <div className="service-content">
-                <h3>{service.title}</h3>
-
-                <p>{service.description}</p>
-
-                {/* Features */}
-                <ul className="service-features">
-                  {service.features.map((feature) => (
-                    <li key={feature}>
-                      <span className="feature-dot"></span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Bottom Arrow */}
-              <div className="service-arrow">
-                <FaArrowRight />
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="services-cta">
-          <div>
-            <span className="section-label">Have a project?</span>
-
-            <h3>
-              Let's turn your idea into
-              <span> something real.</span>
-            </h3>
-          </div>
-
-          <a href="#contact" className="btn btn-primary">
-            Start a Conversation
-            <FaArrowRight />
-          </a>
-        </div>
+        <h2 className="display-md">
+          <Split>Services that</Split>{" "}
+          <span className="grad-text">
+            <Split>move the needle.</Split>
+          </span>
+        </h2>
       </div>
-    </section>
-  );
-};
+
+      <div className="service-list">
+        {portfolioData.services.map((s, i) => (
+          <a href="#contact" className="service-row" key={s.title} data-reveal>
+            <span className="mono service-num">/0{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.description}</p>
+            <span className="service-arrow">
+              <FiArrowUpRight />
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
 export default Services;

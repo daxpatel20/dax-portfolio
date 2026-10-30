@@ -1,134 +1,89 @@
-import React from "react";
-import resume from "../resume/daxresume.pdf";
-import profileImage from "../img/hek.png";
-import { FaArrowRight, FaDownload, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { FiArrowDownRight, FiDownload } from "react-icons/fi";
+import NetworkCanvas from "./NetworkCanvas";
+import CodeWindow from "./CodeWindow";
 import portfolioData from "../data/portfolio";
+import resume from "../resume/daxresume.pdf";
 
 const Hero = () => {
-  const { personal, social, hero } = portfolioData;
+  const { personal, roles } = portfolioData;
+  const [roleIndex, setRoleIndex] = useState(0);
 
-  const scrollToProjects = () => {
-    const projectsSection = document.getElementById("projects");
-
-    if (projectsSection) {
-      projectsSection.scrollIntoView({
-        behavior: "smooth",
-      });
-    }
-  };
+  useEffect(() => {
+    const id = setInterval(() => setRoleIndex((i) => (i + 1) % roles.length), 2600);
+    return () => clearInterval(id);
+  }, [roles.length]);
 
   return (
     <section id="home" className="hero">
-      <div className="container hero-container">
-        {/* Hero Content */}
+      <NetworkCanvas />
+      <div className="hero-grid-lines" aria-hidden="true" />
+
+      <div className="hero-layout container">
         <div className="hero-content">
-          <div className="hero-badge">
-            <span className="status-dot"></span>
+          <div className="hero-badge hero-anim">
+            <span className="pulse-dot" />
             {personal.availability}
           </div>
 
-          <p className="hero-greeting">
-            {hero.greeting}
-          </p>
-
           <h1 className="hero-title">
-            <span>{personal.firstName}</span>{" "}
-            <strong>{personal.lastName}</strong>
+            <span className="hero-line">
+              <span className="hero-anim-line">Hi, I'm {personal.firstName}</span>
+            </span>
+            <span className="hero-line">
+              <span className="hero-anim-line">
+                I build <span className="grad-text">scalable</span>
+              </span>
+            </span>
+            <span className="hero-line">
+              <span className="hero-anim-line outline">web products.</span>
+            </span>
           </h1>
 
-          <h2 className="hero-role">
-            {hero.subtitle}
-          </h2>
-
-          <p className="hero-description">
-            {hero.description}
-          </p>
-
-          {/* CTA Buttons */}
-          <div className="hero-buttons">
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={scrollToProjects}
-            >
-              {hero.primaryButton}
-              <FaArrowRight />
-            </button>
-
-            <a
-              href={resume}
-              className="btn btn-outline"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaDownload />
-              {hero.viewbutton}
-            </a>
+          <div className="hero-role hero-anim">
+            <span className="mono">&gt;_</span>
+            <span className="role-window">
+              <span key={roleIndex} className="role-text">
+                {roles[roleIndex]}
+              </span>
+            </span>
           </div>
 
-          {/* Social Links */}
-          <div className="hero-social">
-            <span>Find me on</span>
+          <p className="hero-desc hero-anim">
+            Fast, secure and pixel-perfect applications with React.js, Node.js and the MERN stack — from
+            first idea to production deployment.
+          </p>
 
-            <div className="hero-social-links">
-              <a
-                href={social.github}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="GitHub"
-              >
-                <FaGithub />
-              </a>
-
-              <a
-                href={social.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="LinkedIn"
-              >
-                <FaLinkedinIn />
-              </a>
-            </div>
+          <div className="hero-actions hero-anim">
+            <a href="#projects" className="btn btn-primary" data-magnetic>
+              <span>View my work</span>
+              <FiArrowDownRight />
+            </a>
+            <a href={resume} className="btn btn-ghost" download data-magnetic>
+              <span>Download CV</span>
+              <FiDownload />
+            </a>
           </div>
         </div>
 
-        {/* Hero Visual */}
-        <div className="hero-visual">
-          <div className="hero-glow"></div>
-
-          <div className="hero-card hero-image-card">
-            <div className="hero-image-shell">
-              <img
-                src={profileImage}
-                alt="Developer portrait"
-                className="hero-image"
-              />
-            </div>
-          </div>
-
-          {/* Floating Cards */}
-          <div className="floating-card floating-card-top">
-            <span className="floating-icon">{"</>"}</span>
-            <div>
-              <strong>Clean Code</strong>
-              <small>Reusable Components</small>
-            </div>
-          </div>
-
-          <div className="floating-card floating-card-bottom">
-            <span className="floating-icon">⚡</span>
-            <div>
-              <strong>Modern UI</strong>
-              <small>Fast & Responsive</small>
-            </div>
-          </div>
+        <div className="hero-visual hero-anim">
+          <CodeWindow />
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="scroll-indicator">
-        <span></span>
-        <small>Scroll to explore</small>
+      <div className="hero-footer container hero-anim">
+        <div>
+          <span className="mono muted">Based in</span>
+          <strong>{personal.location}</strong>
+        </div>
+        <div className="scroll-cue">
+          <span className="mono muted">Scroll</span>
+          <span className="scroll-line" />
+        </div>
+        <div className="hero-footer-right">
+          <span className="mono muted">Focus</span>
+          <strong>MERN · React · APIs</strong>
+        </div>
       </div>
     </section>
   );
